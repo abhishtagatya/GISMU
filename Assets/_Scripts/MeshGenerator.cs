@@ -28,6 +28,9 @@ public class MeshGenerator : MonoBehaviour
     public bool useUniformCentroidChunking = true;
     public int N = 10;
 
+    [Header("Aesthetics")]
+    public Material material;
+
     private CoordinateTranslator ct;
     private ConcurrentDictionary<NetTopologySuite.Geometries.Coordinate, Vector3> cc;
     private CoordinateConverter _converter;
@@ -50,6 +53,11 @@ public class MeshGenerator : MonoBehaviour
             YScale,
             (int)minWorldY
         );
+
+        if (material == null)
+        {
+            material = new Material(Shader.Find("Standard"));
+        }
 
         if (filePath.EndsWith(".shp"))
         {
@@ -256,7 +264,7 @@ public class MeshGenerator : MonoBehaviour
         MeshRenderer meshRenderer = meshObject.AddComponent<MeshRenderer>();
 
         meshFilter.mesh = mesh;
-        meshRenderer.material = new Material(Shader.Find("Standard"));
+        meshRenderer.material = material;
 
         meshObject.transform.SetParent(this.transform);
     }
