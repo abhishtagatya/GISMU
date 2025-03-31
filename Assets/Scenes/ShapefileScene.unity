@@ -167,6 +167,91 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &167256513
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 167256514}
+  m_Layer: 0
+  m_Name: -- Scene Settings --
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &167256514
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167256513}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -486.7477, y: 36.982185, z: -143.5969}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &292633532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 292633534}
+  - component: {fileID: 292633533}
+  m_Layer: 0
+  m_Name: MapE
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &292633533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292633532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5da1fa7824d022f4a8bd20f092470e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Data/TerrainSHP/05.shp
+  mapCenter: {x: 49.1951, y: 16.6068}
+  gameCenter: {x: 0, y: 0}
+  XZScale: 0.1
+  YScale: 0.1
+  minWorldY: 0
+  usingTranslation: 1
+  usingSJSTK: 1
+  useUniformCentroidChunking: 1
+  N: 8
+--- !u!4 &292633534
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292633532}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,6 +409,37 @@ MonoBehaviour:
   minFOV: 20
   maxFOV: 90
   smoothZoomTime: 0.2
+--- !u!1 &338811702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 338811703}
+  m_Layer: 0
+  m_Name: -- Map --
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &338811703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338811702}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -486.7477, y: 36.982185, z: -143.5969}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &361296706
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,12 +451,12 @@ GameObject:
   - component: {fileID: 361296708}
   - component: {fileID: 361296707}
   m_Layer: 0
-  m_Name: MapManager_04
+  m_Name: MapD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &361296707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,6 +477,8 @@ MonoBehaviour:
   minWorldY: 0
   usingTranslation: 1
   usingSJSTK: 1
+  useUniformCentroidChunking: 1
+  N: 8
 --- !u!4 &361296708
 Transform:
   m_ObjectHideFlags: 0
@@ -494,6 +612,60 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!1 &674541061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 674541063}
+  - component: {fileID: 674541062}
+  m_Layer: 0
+  m_Name: MapF
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &674541062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674541061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5da1fa7824d022f4a8bd20f092470e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Data/TerrainSHP/06.shp
+  mapCenter: {x: 49.1951, y: 16.6068}
+  gameCenter: {x: 0, y: 0}
+  XZScale: 0.1
+  YScale: 0.1
+  minWorldY: 0
+  usingTranslation: 1
+  usingSJSTK: 1
+  useUniformCentroidChunking: 1
+  N: 8
+--- !u!4 &674541063
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674541061}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,7 +726,7 @@ GameObject:
   - component: {fileID: 1200672651}
   - component: {fileID: 1200672650}
   m_Layer: 0
-  m_Name: MapManager_01
+  m_Name: MapA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -574,12 +746,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   filePath: Data/TerrainSHP/01.shp
   mapCenter: {x: 49.1951, y: 16.6068}
-  gameCenter: {x: 49.1951, y: 16.6068}
+  gameCenter: {x: 0, y: 0}
   XZScale: 0.1
   YScale: 0.1
   minWorldY: 0
   usingTranslation: 1
   usingSJSTK: 1
+  useUniformCentroidChunking: 1
+  N: 8
 --- !u!4 &1200672651
 Transform:
   m_ObjectHideFlags: 0
@@ -606,12 +780,12 @@ GameObject:
   - component: {fileID: 1316246050}
   - component: {fileID: 1316246049}
   m_Layer: 0
-  m_Name: MapManager_02
+  m_Name: MapB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1316246049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -632,6 +806,8 @@ MonoBehaviour:
   minWorldY: 0
   usingTranslation: 1
   usingSJSTK: 1
+  useUniformCentroidChunking: 1
+  N: 8
 --- !u!4 &1316246050
 Transform:
   m_ObjectHideFlags: 0
@@ -658,12 +834,12 @@ GameObject:
   - component: {fileID: 1621026910}
   - component: {fileID: 1621026909}
   m_Layer: 0
-  m_Name: MapManager_03
+  m_Name: MapC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1621026909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -684,6 +860,8 @@ MonoBehaviour:
   minWorldY: 0
   usingTranslation: 1
   usingSJSTK: 1
+  useUniformCentroidChunking: 1
+  N: 10
 --- !u!4 &1621026910
 Transform:
   m_ObjectHideFlags: 0
@@ -703,11 +881,15 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 167256514}
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
+  - {fileID: 338811703}
   - {fileID: 1200672651}
   - {fileID: 1316246050}
   - {fileID: 1621026910}
   - {fileID: 361296708}
+  - {fileID: 292633534}
+  - {fileID: 674541063}
   - {fileID: 83659552}

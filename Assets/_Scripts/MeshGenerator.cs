@@ -14,6 +14,7 @@ using UnityEngine;
 
 public class MeshGenerator : MonoBehaviour
 {
+    [Header("Shapefile Generation")]
     public string filePath;
     public Vector2 mapCenter = new Vector2(0, 0);
     public Vector2 gameCenter = new Vector2(0, 0);
@@ -23,13 +24,21 @@ public class MeshGenerator : MonoBehaviour
     public bool usingTranslation = false;
     public bool usingSJSTK = true;
 
+    [Header("Uniform Centroid Grid Chunking")]
+    public bool useUniformCentroidChunking = true;
+    public int N = 10;
+
     private CoordinateTranslator ct;
-    private ConcurrentDictionary<NetTopologySuite.Geometries.Coordinate, Vector3> cc = new ConcurrentDictionary<NetTopologySuite.Geometries.Coordinate, Vector3>();
+    private ConcurrentDictionary<NetTopologySuite.Geometries.Coordinate, Vector3> cc;
     private CoordinateConverter _converter;
     private ICoordinateTransformation _transform;
 
+    private const int MaxVerticesPerChunk = 65535;
+
     void Start()
     {
+        cc = new ConcurrentDictionary<NetTopologySuite.Geometries.Coordinate, Vector3>();
+
         _converter = new CoordinateConverter();
         _transform = _converter.CreateSJtskToWgs84Transformation();
 
@@ -44,7 +53,14 @@ public class MeshGenerator : MonoBehaviour
 
         if (filePath.EndsWith(".shp"))
         {
-            GenerateFromShapefile(filePath);
+            if (useUniformCentroidChunking)
+            {
+                GenerateFromShapefile_AreaChunked(filePath);
+            }
+            else
+            {
+                GenerateFromShapefile(filePath);
+            }
         }
     }
 
@@ -56,7 +72,6 @@ public class MeshGenerator : MonoBehaviour
 
         int vertexOffset = 0;
         int chunkIndex = 0;
-        int maxVerticesPerChunk = 65535;
 
         var features = Shapefile.ReadAllFeatures(filePath);
         foreach (var feature in features)
@@ -69,7 +84,7 @@ public class MeshGenerator : MonoBehaviour
                     {
                         AddPolygonToMesh((Polygon)polygon, vertices, triangles, ref vertexOffset);
 
-                        if (vertices.Count >= maxVerticesPerChunk)
+                        if (vertices.Count >= MaxVerticesPerChunk)
                         {
                             CreateMeshChunk(vertices, triangles, chunkIndex++);
                             vertices.Clear();
@@ -85,6 +100,85 @@ public class MeshGenerator : MonoBehaviour
         {
             CreateMeshChunk(vertices, triangles, chunkIndex);
             cc.Clear();
+        }
+    }
+
+    private void GenerateFromShapefile_AreaChunked(string filePath)
+    {
+        cc.Clear();
+
+        var features = Shapefile.ReadAllFeatures(filePath);
+
+        // Generate Bounding Box
+        double minX = double.MaxValue;
+        double minY = double.MaxValue;
+        double maxX = double.MinValue;
+        double maxY = double.MinValue;
+
+        foreach (var feature in features)
+        {
+            if (feature.Geometry is MultiPolygon multiPolygon)
+            {
+                foreach (var polygon in multiPolygon.Geometries)
+                {
+                    if (polygon is Polygon)
+                    {
+                        foreach (var coordinate in polygon.Coordinates)
+                        {
+                            minX = Mathf.Min((float)minX, (float)coordinate.X);
+                            minY = Mathf.Min((float)minY, (float)coordinate.Y);
+                            maxX = Mathf.Max((float)maxX, (float)coordinate.X);
+                            maxY = Mathf.Max((float)maxY, (float)coordinate.Y);
+                        }
+                    }
+                }
+            }
+        }
+
+        double cellWidth = (maxX - minX) / N;
+        double cellHeight = (maxY - minY) / N;
+
+        // Put Polygons into Grid Cells based on Centroid
+        var gridCells = new Dictionary<(int, int), List<Polygon>>();
+        foreach (var feature in features)
+        {
+            if (feature.Geometry is MultiPolygon multiPolygon)
+            {
+                foreach (var polygon in multiPolygon.Geometries)
+                {
+                    if (polygon is Polygon)
+                    {
+                        var centroid = polygon.Centroid.Coordinate;
+                        int cellX = (int)((centroid.X - minX) / cellWidth);
+                        int cellY = (int)((centroid.Y - minY) / cellHeight);
+
+                        var cellKey = (cellX, cellY);
+                        if (!gridCells.ContainsKey(cellKey))
+                            gridCells[cellKey] = new List<Polygon>();
+
+                        gridCells[cellKey].Add((Polygon)polygon);
+                    }
+                }
+            }
+        }
+
+        // Generate Mesh Chunks
+        int chunkIndex = 0;
+        foreach (var cell in gridCells)
+        {
+            List<Vector3> vertices = new List<Vector3>();
+            List<int> triangles = new List<int>();
+            int vertexOffset = 0;
+
+            foreach (var polygon in cell.Value)
+            {
+                AddPolygonToMesh(polygon, vertices, triangles, ref vertexOffset);
+            }
+
+            if (vertices.Count > 0)
+            {
+                CreateMeshChunk(vertices, triangles, chunkIndex++);
+            }
         }
     }
 
@@ -144,17 +238,26 @@ public class MeshGenerator : MonoBehaviour
 
     private void CreateMeshChunk(List<Vector3> vertices, List<int> triangles, int chunkIndex)
     {
+        string chunkName = $"{this.gameObject.name}_Chunk_{chunkIndex}";
+
+        if (vertices.Count > MaxVerticesPerChunk)
+        {
+            throw new System.Exception($"Reach max vertices count on Mesh {chunkName}");
+        }
+
         Mesh mesh = new Mesh();
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
         mesh.RecalculateNormals();
         mesh.Optimize();
 
-        GameObject meshObject = new GameObject($"Mesh Chunk {chunkIndex}");
+        GameObject meshObject = new GameObject(chunkName);
         MeshFilter meshFilter = meshObject.AddComponent<MeshFilter>();
         MeshRenderer meshRenderer = meshObject.AddComponent<MeshRenderer>();
 
         meshFilter.mesh = mesh;
         meshRenderer.material = new Material(Shader.Find("Standard"));
+
+        meshObject.transform.SetParent(this.transform);
     }
 }
