@@ -412,6 +412,63 @@ MonoBehaviour:
   minFOV: 20
   maxFOV: 90
   smoothZoomTime: 0.2
+--- !u!1 &331171515
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 331171517}
+  - component: {fileID: 331171516}
+  m_Layer: 0
+  m_Name: PubTransLine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 0
+--- !u!114 &331171516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331171515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5da1fa7824d022f4a8bd20f092470e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Data/PubTransportSHP/Trasy_linek_IDS_JMK___Public_transport_routes.shp
+  mapCenter: {x: 49.1951, y: 16.6068}
+  gameCenter: {x: 0, y: 0}
+  XZScale: 0.1
+  YScale: 0.1
+  minWorldY: 55
+  usingTranslation: 1
+  usingSJSTK: 0
+  useUniformCentroidChunking: 0
+  N: 8
+  useLODCulling: 0
+  screenRelativeTransitionHeight: 0.8
+  material: {fileID: 0}
+--- !u!4 &331171517
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331171515}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &338811702
 GameObject:
   m_ObjectHideFlags: 0
@@ -910,4 +967,5 @@ SceneRoots:
   - {fileID: 361296708}
   - {fileID: 292633534}
   - {fileID: 674541063}
+  - {fileID: 331171517}
   - {fileID: 83659552}

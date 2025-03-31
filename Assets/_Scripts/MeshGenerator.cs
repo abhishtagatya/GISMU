@@ -35,6 +35,7 @@ public class MeshGenerator : MonoBehaviour
     [Header("Visual Representation")]
     public Material material;
 
+    private Geometry gtype = null;
     private CoordinateTranslator ct;
     private ConcurrentDictionary<NetTopologySuite.Geometries.Coordinate, Vector3> cc;
     private CoordinateConverter _converter;
@@ -88,6 +89,8 @@ public class MeshGenerator : MonoBehaviour
         var features = Shapefile.ReadAllFeatures(filePath);
         foreach (var feature in features)
         {
+            if (gtype == null) gtype = feature.Geometry;
+
             if (feature.Geometry is MultiPolygon multiPolygon)
             {
                 foreach (var polygon in multiPolygon.Geometries)
@@ -106,11 +109,31 @@ public class MeshGenerator : MonoBehaviour
                     }
                 }
             }
+
+            if (feature.Geometry is MultiLineString multiLineString)
+            {
+                foreach (var lineString in multiLineString.Geometries)
+                {
+                    if (lineString is LineString)
+                    {
+                        // LineString uses LineRenderer to display.
+                        AddLineStringToMesh((LineString)lineString, vertices, triangles, ref vertexOffset);
+                        CreateLineChunk(vertices, chunkIndex++);
+                        vertices.Clear();
+                        triangles.Clear();
+                        vertexOffset = 0;
+                    }
+                }
+            }
         }
 
+        // Left over vertices after chunking
         if (vertices.Count > 0)
         {
-            CreateMeshChunk(vertices, triangles, chunkIndex);
+            if (gtype is MultiPolygon)
+            {
+                CreateMeshChunk(vertices, triangles, chunkIndex);
+            }
             cc.Clear();
         }
     }
@@ -214,7 +237,7 @@ public class MeshGenerator : MonoBehaviour
                 }
 
                 Vector2 xz = ct.LatLonToXZ(latLon.x, latLon.y);
-                float y = ct.AltitudeToY((float)c.Z);
+                float y = float.IsNaN((float)c.Z) ? minWorldY : ct.AltitudeToY((float)c.Z);
                 result = new Vector3(xz.x, y, xz.y);
             }
             else
@@ -248,6 +271,20 @@ public class MeshGenerator : MonoBehaviour
         vertexOffset += vertexCount;
     }
 
+    private void AddLineStringToMesh(LineString lineString, List<Vector3> vertices, List<int> triangles, ref int vertexOffset)
+    {
+        var coordinates = lineString.Coordinates;
+        var allVertices = new Vector3[coordinates.Length];
+
+        Parallel.For(0, coordinates.Length, i =>
+        {
+            allVertices[i] = TransformCoordinate(coordinates[i]);
+        });
+
+        vertices.AddRange(allVertices);
+        vertexOffset += coordinates.Length;
+    }
+
     private void CreateMeshChunk(List<Vector3> vertices, List<int> triangles, int chunkIndex)
     {
         string chunkName = $"{this.gameObject.name}_Chunk_{chunkIndex}";
@@ -274,6 +311,25 @@ public class MeshGenerator : MonoBehaviour
         if (useLODCulling) ConfigureLODGroup(meshObject, meshRenderer);
 
         meshObject.transform.SetParent(this.transform);
+    }
+
+    private void CreateLineChunk(List<Vector3> vertices, int chunkIndex)
+    {
+        string chunkName = $"{this.gameObject.name}_Chunk_{chunkIndex}";
+
+        GameObject lineObject = new GameObject(chunkName);
+        LineRenderer lineRenderer = lineObject.AddComponent<LineRenderer>();
+
+        lineRenderer.positionCount = vertices.Count;
+        lineRenderer.SetPositions(vertices.ToArray());
+
+        lineRenderer.material = material;
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
+
+        lineObject.isStatic = true;
+
+        lineObject.transform.SetParent(this.transform);
     }
 
     private void ConfigureLODGroup(GameObject meshObject, MeshRenderer meshRenderer)
