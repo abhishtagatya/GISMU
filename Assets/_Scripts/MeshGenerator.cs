@@ -28,7 +28,11 @@ public class MeshGenerator : MonoBehaviour
     public bool useUniformCentroidChunking = true;
     public int N = 10;
 
-    [Header("Aesthetics")]
+    [Header("Optimization")]
+    public bool useLODCulling = true;
+    public float screenRelativeTransitionHeight = 0.5f;
+
+    [Header("Visual Representation")]
     public Material material;
 
     private CoordinateTranslator ct;
@@ -92,7 +96,7 @@ public class MeshGenerator : MonoBehaviour
                     {
                         AddPolygonToMesh((Polygon)polygon, vertices, triangles, ref vertexOffset);
 
-                        if (vertices.Count >= MaxVerticesPerChunk)
+                        if (vertices.Count > MaxVerticesPerChunk)
                         {
                             CreateMeshChunk(vertices, triangles, chunkIndex++);
                             vertices.Clear();
@@ -248,9 +252,9 @@ public class MeshGenerator : MonoBehaviour
     {
         string chunkName = $"{this.gameObject.name}_Chunk_{chunkIndex}";
 
-        if (vertices.Count > MaxVerticesPerChunk)
+        if (vertices.Count >= MaxVerticesPerChunk)
         {
-            throw new System.Exception($"Reach max vertices count on Mesh {chunkName}");
+            Debug.LogWarning($"Chunk {chunkName} has too many vertices ({vertices.Count}). Potential missing of information.");
         }
 
         Mesh mesh = new Mesh();
@@ -265,7 +269,22 @@ public class MeshGenerator : MonoBehaviour
 
         meshFilter.mesh = mesh;
         meshRenderer.material = material;
+        meshObject.isStatic = true;
+
+        if (useLODCulling) ConfigureLODGroup(meshObject, meshRenderer);
 
         meshObject.transform.SetParent(this.transform);
+    }
+
+    private void ConfigureLODGroup(GameObject meshObject, MeshRenderer meshRenderer)
+    {
+        LODGroup lodGroup = meshObject.AddComponent<LODGroup>();
+        LOD[] lods = new LOD[2];
+
+        lods[0] = new LOD(screenRelativeTransitionHeight, new Renderer[] { meshRenderer });  // Render until camera is % close
+        lods[1] = new LOD(0.0f, new Renderer[] { });  // Hide when camera is far
+
+        lodGroup.SetLODs(lods);
+        lodGroup.RecalculateBounds();
     }
 }
