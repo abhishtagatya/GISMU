@@ -16,12 +16,8 @@ public class MeshGenerator : MonoBehaviour
 {
     [Header("Shapefile Generation")]
     public string filePath;
-    public Vector2 mapCenter = new Vector2(0, 0);
-    public Vector2 gameCenter = new Vector2(0, 0);
-    public float XZScale = 1.0f;
-    public float YScale = 1.0f;
-    public float minWorldY = 0.0f;
-    public bool usingTranslation = false;
+    public GeospatialManager geom;
+    public bool usingTranslation = true;
     public bool usingSJSTK = true;
 
     [Header("Uniform Centroid Grid Chunking")]
@@ -35,29 +31,19 @@ public class MeshGenerator : MonoBehaviour
     [Header("Visual Representation")]
     public Material material;
 
-    private Geometry gtype = null;
-    private CoordinateTranslator ct;
-    private ConcurrentDictionary<NetTopologySuite.Geometries.Coordinate, Vector3> cc;
     private CoordinateConverter _converter;
     private ICoordinateTransformation _transform;
+
+    private Geometry gtype = null;
+    private ConcurrentDictionary<NetTopologySuite.Geometries.Coordinate, Vector3> cc;
 
     private const int MaxVerticesPerChunk = 65535;
 
     void Start()
     {
-        cc = new ConcurrentDictionary<NetTopologySuite.Geometries.Coordinate, Vector3>();
-
         _converter = new CoordinateConverter();
         _transform = _converter.CreateSJtskToWgs84Transformation();
-
-        ct = new CoordinateTranslator(
-            mapCenter,
-            gameCenter,
-            Mathf.Deg2Rad * 45,
-            XZScale,
-            YScale,
-            (int)minWorldY
-        );
+        cc = new ConcurrentDictionary<NetTopologySuite.Geometries.Coordinate, Vector3>();
 
         if (material == null)
         {
@@ -236,13 +222,13 @@ public class MeshGenerator : MonoBehaviour
                     latLon = new Vector2((float)c.Y, (float)c.X);
                 }
 
-                Vector2 xz = ct.LatLonToXZ(latLon.x, latLon.y);
-                float y = float.IsNaN((float)c.Z) ? minWorldY : ct.AltitudeToY((float)c.Z);
+                Vector2 xz = geom.LatLonToXZ(latLon.x, latLon.y);
+                float y = float.IsNaN((float)c.Z) ? geom.minWorldY : geom.AltitudeToY((float)c.Z);
                 result = new Vector3(xz.x, y, xz.y);
             }
             else
             {
-                result = new Vector3((float)c.X * XZScale, (float)c.Z * YScale, (float)c.Y * XZScale);
+                result = new Vector3((float)c.X * geom.XZScale, (float)c.Z * geom.YScale, (float)c.Y * geom.XZScale);
             }
             return result;
         });

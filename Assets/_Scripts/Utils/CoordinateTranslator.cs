@@ -76,6 +76,37 @@ public class CoordinateTranslator
         return LatLonToXZ(point.x, point.y);
     }
 
+    public Vector2 XZToLatLon(float x, float z)
+    {
+        // Reverse the game center offset
+        x -= gameCenter.x;
+        z -= gameCenter.y;
+
+        // Reverse scaling
+        x /= xzScale;
+        z /= -xzScale;  // Reverse the sign to match LatLonToXZ
+
+        // Reverse rotation
+        float x2 = x * Mathf.Cos(-rotation) - z * Mathf.Sin(-rotation);
+        float z2 = x * Mathf.Sin(-rotation) + z * Mathf.Cos(-rotation);
+        x = x2;
+        z = z2;
+
+        // Convert back to latitude and longitude
+        float lat = Mathf.Asin(
+            (float)(Mathf.Sin(mapCenter.x) + (z / EARTH_RADIUS) * Mathf.Cos(mapCenter.x))
+        );
+
+        float lon = mapCenter.y + Mathf.Asin((float)(x / (EARTH_RADIUS * Mathf.Cos(lat))));
+
+        return new Vector2(Deg(lat), Deg(lon));
+    }
+
+    public Vector2 XZToLatLon(Vector2 point)
+    {
+        return XZToLatLon(point.x, point.y);
+    }
+
     private float Rad(float deg)
     {
         return deg * (Mathf.PI / 180);
