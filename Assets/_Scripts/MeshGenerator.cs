@@ -289,9 +289,11 @@ public class MeshGenerator : MonoBehaviour
     {
         string chunkName = $"{this.gameObject.name}_Chunk_{chunkIndex}";
 
-        if (vertices.Count >= MaxVerticesPerChunk)
+        Debug.Log($"Creating chunk {chunkName} with {vertices.Count} vertices and {triangles.Count / 3f} triangles.");
+
+        if (vertices.Count > MaxVerticesPerChunk)
         {
-            Debug.LogWarning($"Chunk {chunkName} has too many vertices ({vertices.Count}). Potential missing of information.");
+            Debug.LogError($"Chunk {chunkName} has too many vertices ({vertices.Count}). Potential missing of information.");
         }
 
         Mesh mesh = new Mesh();
