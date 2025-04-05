@@ -2,13 +2,10 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using NetTopologySuite.Features;
 using NetTopologySuite.Geometries;
 using NetTopologySuite.IO.Esri;
 
-using ProjNet.CoordinateSystems;
 using ProjNet.CoordinateSystems.Transformations;
-using ProjNet.IO.CoordinateSystems;
 
 using UnityEngine;
 

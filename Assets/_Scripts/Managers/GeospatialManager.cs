@@ -13,7 +13,7 @@ public class GeospatialManager : MonoBehaviour
     private CoordinateTranslator ct;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         ct = new CoordinateTranslator(
             mapCenter,
