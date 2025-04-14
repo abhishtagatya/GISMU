@@ -1,3 +1,5 @@
+using System.Collections;
+
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -28,39 +30,52 @@ public class MeshGenerator : MonoBehaviour
     [Header("Visual Representation")]
     public Material material;
 
-    private CoordinateConverter _converter;
-    private ICoordinateTransformation _transform;
+    protected CoordinateConverter _converter;
+    protected ICoordinateTransformation _transform;
 
-    private Geometry gtype = null;
-    private ConcurrentDictionary<NetTopologySuite.Geometries.Coordinate, Vector3> cc;
+    protected Geometry gtype = null;
+    protected ConcurrentDictionary<NetTopologySuite.Geometries.Coordinate, Vector3> cc;
 
-    private const int MaxVerticesPerChunk = 65535;
+    protected const int MaxVerticesPerChunk = 65535;
 
-    void Start()
+    protected virtual void Start()
     {
         _converter = new CoordinateConverter();
         _transform = _converter.CreateSJtskToWgs84Transformation();
         cc = new ConcurrentDictionary<NetTopologySuite.Geometries.Coordinate, Vector3>();
 
-        if (material == null)
-        {
-            material = new Material(Shader.Find("Standard"));
-        }
-
-        if (filePath.EndsWith(".shp"))
-        {
-            if (useUniformCentroidChunking)
-            {
-                GenerateFromShapefile_AreaChunked(filePath);
-            }
-            else
-            {
-                GenerateFromShapefile(filePath);
-            }
-        }
+        if (material == null) material = new Material(Shader.Find("Standard"));
     }
 
-    private void GenerateFromShapefile(string filePath)
+    protected virtual void Update()
+    {
+        // Update logic if needed
+    }
+
+    public void GenerateMesh(string filePath, bool areaChunked)
+    {
+        if (string.IsNullOrEmpty(filePath))
+        {
+            Debug.LogError("File path is empty. Please set a valid shapefile path.");
+            return;
+        }
+
+        if (areaChunked) UniformChunkGenerate(filePath);
+        else SimpleGenerate(filePath);
+    }
+
+    public IEnumerator GenerateMeshCo(string filePath, bool areaChunked)
+    {
+        if (string.IsNullOrEmpty(filePath))
+        {
+            Debug.LogError("File path is empty. Please set a valid shapefile path.");
+            yield break;
+        }
+
+        yield return SimpleGenerateCo(filePath);
+    }
+
+    protected void SimpleGenerate(string filePath)
     {
         cc.Clear();
         List<Vector3> vertices = new List<Vector3>();
@@ -117,11 +132,89 @@ public class MeshGenerator : MonoBehaviour
             {
                 CreateMeshChunk(vertices, triangles, chunkIndex);
             }
+
+            if (gtype is MultiLineString)
+            {
+                CreateLineChunk(vertices, chunkIndex);
+            }
             cc.Clear();
         }
     }
 
-    private void GenerateFromShapefile_AreaChunked(string filePath)
+    protected IEnumerator SimpleGenerateCo(string filePath)
+    {
+        Debug.Log("Generating mesh from shapefile: " + filePath);
+        cc.Clear();
+        Debug.Log("Cleared coordinate converter cache.");
+        List<Vector3> vertices = new List<Vector3>();
+        List<int> triangles = new List<int>();
+
+        int vertexOffset = 0;
+        int chunkIndex = 0;
+
+        var features = Shapefile.ReadAllFeatures(filePath);
+        yield return null;
+
+        foreach (var feature in features)
+        {
+            if (gtype == null) gtype = feature.Geometry;
+
+            if (feature.Geometry is MultiPolygon multiPolygon)
+            {
+                foreach (var polygon in multiPolygon.Geometries)
+                {
+                    if (polygon is Polygon)
+                    {
+                        AddPolygonToMesh((Polygon)polygon, vertices, triangles, ref vertexOffset);
+
+                        if (vertices.Count > MaxVerticesPerChunk)
+                        {
+                            CreateMeshChunk(vertices, triangles, chunkIndex++);
+                            vertices.Clear();
+                            triangles.Clear();
+                            vertexOffset = 0;
+                        }
+                        yield return null;
+                    }
+                }
+            }
+
+            if (feature.Geometry is MultiLineString multiLineString)
+            {
+                foreach (var lineString in multiLineString.Geometries)
+                {
+                    if (lineString is LineString)
+                    {
+                        // LineString uses LineRenderer to display.
+                        AddLineStringToMesh((LineString)lineString, vertices, triangles, ref vertexOffset);
+                        CreateLineChunk(vertices, chunkIndex++);
+                        vertices.Clear();
+                        triangles.Clear();
+                        vertexOffset = 0;
+                    }
+                    yield return null;
+                }
+            }
+        }
+
+        // Left over vertices after chunking
+        if (vertices.Count > 0)
+        {
+            if (gtype is MultiPolygon)
+            {
+                CreateMeshChunk(vertices, triangles, chunkIndex);
+            }
+
+            if (gtype is MultiLineString)
+            {
+                CreateLineChunk(vertices, chunkIndex);
+            }
+            cc.Clear();
+            yield return null;
+        }
+    }
+
+    protected void UniformChunkGenerate(string filePath)
     {
         cc.Clear();
 
@@ -135,6 +228,8 @@ public class MeshGenerator : MonoBehaviour
 
         foreach (var feature in features)
         {
+            if (gtype == null) gtype = feature.Geometry;
+
             if (feature.Geometry is MultiPolygon multiPolygon)
             {
                 foreach (var polygon in multiPolygon.Geometries)
@@ -150,6 +245,10 @@ public class MeshGenerator : MonoBehaviour
                         }
                     }
                 }
+            } else
+            {
+                Debug.LogWarning("Unsupported geometry type for bounding box calculation: " + feature.Geometry.GetType().Name);
+                return;
             }
         }
 
@@ -200,7 +299,7 @@ public class MeshGenerator : MonoBehaviour
         }
     }
 
-    private Vector3 TransformCoordinate(NetTopologySuite.Geometries.Coordinate coordinate)
+    protected virtual Vector3 TransformCoordinate(NetTopologySuite.Geometries.Coordinate coordinate)
     {
         return cc.GetOrAdd(coordinate, c =>
         {
@@ -231,7 +330,7 @@ public class MeshGenerator : MonoBehaviour
         });
     }
 
-    private void AddPolygonToMesh(Polygon polygon, List<Vector3> vertices, List<int> triangles, ref int vertexOffset)
+    protected virtual void AddPolygonToMesh(Polygon polygon, List<Vector3> vertices, List<int> triangles, ref int vertexOffset)
     {
         var exteriorRing = polygon.ExteriorRing.Coordinates;
         var allVertices = new Vector3[exteriorRing.Length];
@@ -254,7 +353,7 @@ public class MeshGenerator : MonoBehaviour
         vertexOffset += vertexCount;
     }
 
-    private void AddLineStringToMesh(LineString lineString, List<Vector3> vertices, List<int> triangles, ref int vertexOffset)
+    protected virtual void AddLineStringToMesh(LineString lineString, List<Vector3> vertices, List<int> triangles, ref int vertexOffset)
     {
         var coordinates = lineString.Coordinates;
         var allVertices = new Vector3[coordinates.Length];
@@ -268,11 +367,11 @@ public class MeshGenerator : MonoBehaviour
         vertexOffset += coordinates.Length;
     }
 
-    private void CreateMeshChunk(List<Vector3> vertices, List<int> triangles, int chunkIndex)
+    protected virtual void CreateMeshChunk(List<Vector3> vertices, List<int> triangles, int chunkIndex)
     {
         string chunkName = $"{this.gameObject.name}_Chunk_{chunkIndex}";
 
-        Debug.Log($"Creating chunk {chunkName} with {vertices.Count} vertices and {triangles.Count / 3f} triangles.");
+        //Debug.Log($"Creating chunk {chunkName} with {vertices.Count} vertices and {triangles.Count / 3f} triangles.");
 
         if (vertices.Count > MaxVerticesPerChunk)
         {
@@ -288,17 +387,20 @@ public class MeshGenerator : MonoBehaviour
         GameObject meshObject = new GameObject(chunkName);
         MeshFilter meshFilter = meshObject.AddComponent<MeshFilter>();
         MeshRenderer meshRenderer = meshObject.AddComponent<MeshRenderer>();
-
+        MeshCollider meshCollider = meshObject.AddComponent<MeshCollider>();
+        
         meshFilter.mesh = mesh;
         meshRenderer.material = material;
+        meshCollider.sharedMesh = mesh;
         meshObject.isStatic = true;
+        meshObject.tag = "Terrain";
 
         if (useLODCulling) ConfigureLODGroup(meshObject, meshRenderer);
 
         meshObject.transform.SetParent(this.transform);
     }
 
-    private void CreateLineChunk(List<Vector3> vertices, int chunkIndex)
+    protected virtual void CreateLineChunk(List<Vector3> vertices, int chunkIndex)
     {
         string chunkName = $"{this.gameObject.name}_Chunk_{chunkIndex}";
 
@@ -317,7 +419,7 @@ public class MeshGenerator : MonoBehaviour
         lineObject.transform.SetParent(this.transform);
     }
 
-    private void ConfigureLODGroup(GameObject meshObject, MeshRenderer meshRenderer)
+    protected virtual void ConfigureLODGroup(GameObject meshObject, MeshRenderer meshRenderer)
     {
         LODGroup lodGroup = meshObject.AddComponent<LODGroup>();
         LOD[] lods = new LOD[2];

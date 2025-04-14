@@ -162,35 +162,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 292633534}
-  - component: {fileID: 292633533}
+  - component: {fileID: 292633535}
   m_Layer: 0
   m_Name: MapE
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!114 &292633533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 292633532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da1fa7824d022f4a8bd20f092470e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  filePath: Data/TerrainSHP/05.shp
-  geom: {fileID: 1782090137}
-  usingTranslation: 1
-  usingSJSTK: 1
-  useUniformCentroidChunking: 1
-  N: 8
-  useLODCulling: 1
-  screenRelativeTransitionHeight: 0.8
-  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  m_IsActive: 0
 --- !u!4 &292633534
 Transform:
   m_ObjectHideFlags: 0
@@ -206,6 +185,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &292633535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292633532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8495a3f2d04e7484ea0697fbd104ce4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Data/TerrainSHP/05.shp
+  geom: {fileID: 1782090137}
+  usingTranslation: 1
+  usingSJSTK: 1
+  useUniformCentroidChunking: 1
+  N: 8
+  useLODCulling: 1
+  screenRelativeTransitionHeight: 0.5
+  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
 --- !u!1 &320083032
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +418,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 331171517}
-  - component: {fileID: 331171516}
+  - component: {fileID: 331171518}
   m_Layer: 0
   m_Name: PubTransLine
   m_TagString: Untagged
@@ -426,27 +426,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!114 &331171516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 331171515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da1fa7824d022f4a8bd20f092470e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  filePath: Data/PubTransportSHP/Trasy_linek_IDS_JMK___Public_transport_routes.shp
-  geom: {fileID: 1877599418}
-  usingTranslation: 1
-  usingSJSTK: 0
-  useUniformCentroidChunking: 0
-  N: 8
-  useLODCulling: 0
-  screenRelativeTransitionHeight: 0.8
-  material: {fileID: 0}
 --- !u!4 &331171517
 Transform:
   m_ObjectHideFlags: 0
@@ -462,6 +441,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &331171518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331171515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b57c103e80176f499c26cfe86b4d634, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Data/PubTransportSHP/Trasy_linek_IDS_JMK___Public_transport_routes.shp
+  geom: {fileID: 1877599418}
+  usingTranslation: 1
+  usingSJSTK: 0
+  useUniformCentroidChunking: 1
+  N: 10
+  useLODCulling: 0
+  screenRelativeTransitionHeight: 0.5
+  material: {fileID: 0}
+  raycastToTerrain: 1
+  offset: {x: 0, y: 0.5, z: 0}
 --- !u!1 &338811702
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,35 +504,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 361296708}
-  - component: {fileID: 361296707}
+  - component: {fileID: 361296709}
   m_Layer: 0
   m_Name: MapD
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!114 &361296707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 361296706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da1fa7824d022f4a8bd20f092470e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  filePath: Data/TerrainSHP/04.shp
-  geom: {fileID: 1782090137}
-  usingTranslation: 1
-  usingSJSTK: 1
-  useUniformCentroidChunking: 1
-  N: 8
-  useLODCulling: 1
-  screenRelativeTransitionHeight: 0.8
-  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  m_IsActive: 0
 --- !u!4 &361296708
 Transform:
   m_ObjectHideFlags: 0
@@ -546,6 +527,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &361296709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 361296706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8495a3f2d04e7484ea0697fbd104ce4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Data/TerrainSHP/04.shp
+  geom: {fileID: 1782090137}
+  usingTranslation: 1
+  usingSJSTK: 1
+  useUniformCentroidChunking: 1
+  N: 8
+  useLODCulling: 1
+  screenRelativeTransitionHeight: 0.5
+  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,35 +769,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 574733689}
-  - component: {fileID: 574733688}
+  - component: {fileID: 574733690}
   m_Layer: 0
   m_Name: MapK
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!114 &574733688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 574733687}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da1fa7824d022f4a8bd20f092470e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  filePath: Data/TerrainSHP/11.shp
-  geom: {fileID: 1782090137}
-  usingTranslation: 1
-  usingSJSTK: 1
-  useUniformCentroidChunking: 1
-  N: 8
-  useLODCulling: 1
-  screenRelativeTransitionHeight: 0.8
-  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  m_IsActive: 0
 --- !u!4 &574733689
 Transform:
   m_ObjectHideFlags: 0
@@ -811,6 +792,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &574733690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574733687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8495a3f2d04e7484ea0697fbd104ce4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Data/TerrainSHP/11.shp
+  geom: {fileID: 1782090137}
+  usingTranslation: 1
+  usingSJSTK: 1
+  useUniformCentroidChunking: 1
+  N: 8
+  useLODCulling: 1
+  screenRelativeTransitionHeight: 0.5
+  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
 --- !u!1 &626607457
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,35 +956,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 674541063}
-  - component: {fileID: 674541062}
+  - component: {fileID: 674541064}
   m_Layer: 0
   m_Name: MapF
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!114 &674541062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 674541061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da1fa7824d022f4a8bd20f092470e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  filePath: Data/TerrainSHP/06.shp
-  geom: {fileID: 1782090137}
-  usingTranslation: 1
-  usingSJSTK: 1
-  useUniformCentroidChunking: 1
-  N: 8
-  useLODCulling: 1
-  screenRelativeTransitionHeight: 0.8
-  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  m_IsActive: 0
 --- !u!4 &674541063
 Transform:
   m_ObjectHideFlags: 0
@@ -998,6 +979,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &674541064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674541061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8495a3f2d04e7484ea0697fbd104ce4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Data/TerrainSHP/06.shp
+  geom: {fileID: 1782090137}
+  usingTranslation: 1
+  usingSJSTK: 1
+  useUniformCentroidChunking: 1
+  N: 8
+  useLODCulling: 1
+  screenRelativeTransitionHeight: 0.5
+  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
 --- !u!1 &760913961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1158,35 +1160,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1200672651}
-  - component: {fileID: 1200672650}
+  - component: {fileID: 1200672652}
   m_Layer: 0
   m_Name: MapA
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!114 &1200672650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1200672649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da1fa7824d022f4a8bd20f092470e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  filePath: Data/TerrainSHP/01.shp
-  geom: {fileID: 1782090137}
-  usingTranslation: 1
-  usingSJSTK: 1
-  useUniformCentroidChunking: 1
-  N: 8
-  useLODCulling: 1
-  screenRelativeTransitionHeight: 0.8
-  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
 --- !u!4 &1200672651
 Transform:
   m_ObjectHideFlags: 0
@@ -1202,6 +1183,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1200672652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200672649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8495a3f2d04e7484ea0697fbd104ce4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Data/TerrainSHP/01.shp
+  geom: {fileID: 1782090137}
+  usingTranslation: 1
+  usingSJSTK: 1
+  useUniformCentroidChunking: 1
+  N: 8
+  useLODCulling: 1
+  screenRelativeTransitionHeight: 0.5
+  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
 --- !u!1 &1232222348
 GameObject:
   m_ObjectHideFlags: 0
@@ -1211,35 +1213,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1232222350}
-  - component: {fileID: 1232222349}
+  - component: {fileID: 1232222351}
   m_Layer: 0
   m_Name: MapH
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!114 &1232222349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1232222348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da1fa7824d022f4a8bd20f092470e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  filePath: Data/TerrainSHP/08.shp
-  geom: {fileID: 1782090137}
-  usingTranslation: 1
-  usingSJSTK: 1
-  useUniformCentroidChunking: 1
-  N: 15
-  useLODCulling: 1
-  screenRelativeTransitionHeight: 0.8
-  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  m_IsActive: 0
 --- !u!4 &1232222350
 Transform:
   m_ObjectHideFlags: 0
@@ -1255,6 +1236,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1232222351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232222348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8495a3f2d04e7484ea0697fbd104ce4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Data/TerrainSHP/08.shp
+  geom: {fileID: 1782090137}
+  usingTranslation: 1
+  usingSJSTK: 1
+  useUniformCentroidChunking: 1
+  N: 15
+  useLODCulling: 1
+  screenRelativeTransitionHeight: 0.5
+  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
 --- !u!1 &1316246048
 GameObject:
   m_ObjectHideFlags: 0
@@ -1264,35 +1266,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1316246050}
-  - component: {fileID: 1316246049}
+  - component: {fileID: 1316246051}
   m_Layer: 0
   m_Name: MapB
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!114 &1316246049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1316246048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da1fa7824d022f4a8bd20f092470e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  filePath: Data/TerrainSHP/02.shp
-  geom: {fileID: 1782090137}
-  usingTranslation: 1
-  usingSJSTK: 1
-  useUniformCentroidChunking: 1
-  N: 8
-  useLODCulling: 1
-  screenRelativeTransitionHeight: 0.8
-  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  m_IsActive: 0
 --- !u!4 &1316246050
 Transform:
   m_ObjectHideFlags: 0
@@ -1308,6 +1289,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1316246051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316246048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8495a3f2d04e7484ea0697fbd104ce4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Data/TerrainSHP/02.shp
+  geom: {fileID: 1782090137}
+  usingTranslation: 1
+  usingSJSTK: 1
+  useUniformCentroidChunking: 1
+  N: 8
+  useLODCulling: 1
+  screenRelativeTransitionHeight: 0.5
+  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
 --- !u!1 &1353685909
 GameObject:
   m_ObjectHideFlags: 0
@@ -1348,35 +1350,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1409770473}
-  - component: {fileID: 1409770472}
+  - component: {fileID: 1409770474}
   m_Layer: 0
   m_Name: MapJ
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!114 &1409770472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1409770471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da1fa7824d022f4a8bd20f092470e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  filePath: Data/TerrainSHP/10.shp
-  geom: {fileID: 1782090137}
-  usingTranslation: 1
-  usingSJSTK: 1
-  useUniformCentroidChunking: 1
-  N: 12
-  useLODCulling: 1
-  screenRelativeTransitionHeight: 0.8
-  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  m_IsActive: 0
 --- !u!4 &1409770473
 Transform:
   m_ObjectHideFlags: 0
@@ -1392,6 +1373,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1409770474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409770471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8495a3f2d04e7484ea0697fbd104ce4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Data/TerrainSHP/10.shp
+  geom: {fileID: 1782090137}
+  usingTranslation: 1
+  usingSJSTK: 1
+  useUniformCentroidChunking: 1
+  N: 12
+  useLODCulling: 1
+  screenRelativeTransitionHeight: 0.5
+  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
 --- !u!1 &1449559864
 GameObject:
   m_ObjectHideFlags: 0
@@ -1603,35 +1605,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1621026910}
-  - component: {fileID: 1621026909}
+  - component: {fileID: 1621026911}
   m_Layer: 0
   m_Name: MapC
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!114 &1621026909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1621026908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da1fa7824d022f4a8bd20f092470e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  filePath: Data/TerrainSHP/03.shp
-  geom: {fileID: 1782090137}
-  usingTranslation: 1
-  usingSJSTK: 1
-  useUniformCentroidChunking: 1
-  N: 10
-  useLODCulling: 1
-  screenRelativeTransitionHeight: 0.8
-  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  m_IsActive: 0
 --- !u!4 &1621026910
 Transform:
   m_ObjectHideFlags: 0
@@ -1647,6 +1628,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1621026911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621026908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8495a3f2d04e7484ea0697fbd104ce4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Data/TerrainSHP/03.shp
+  geom: {fileID: 1782090137}
+  usingTranslation: 1
+  usingSJSTK: 1
+  useUniformCentroidChunking: 1
+  N: 10
+  useLODCulling: 1
+  screenRelativeTransitionHeight: 0.5
+  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
 --- !u!1 &1627919003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1657,13 +1659,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1627919005}
   - component: {fileID: 1627919004}
+  - component: {fileID: 1627919006}
   m_Layer: 0
   m_Name: MapG
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1627919004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1700,6 +1703,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1627919006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627919003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8495a3f2d04e7484ea0697fbd104ce4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Data/TerrainSHP/07.shp
+  geom: {fileID: 1782090137}
+  usingTranslation: 1
+  usingSJSTK: 1
+  useUniformCentroidChunking: 1
+  N: 8
+  useLODCulling: 1
+  screenRelativeTransitionHeight: 0.5
+  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
 --- !u!1 &1782090135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1758,35 +1782,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1823977341}
-  - component: {fileID: 1823977340}
+  - component: {fileID: 1823977342}
   m_Layer: 0
   m_Name: MapI
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!114 &1823977340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823977339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da1fa7824d022f4a8bd20f092470e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  filePath: Data/TerrainSHP/09.shp
-  geom: {fileID: 1782090137}
-  usingTranslation: 1
-  usingSJSTK: 1
-  useUniformCentroidChunking: 1
-  N: 15
-  useLODCulling: 1
-  screenRelativeTransitionHeight: 0.8
-  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  m_IsActive: 0
 --- !u!4 &1823977341
 Transform:
   m_ObjectHideFlags: 0
@@ -1802,6 +1805,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1823977342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823977339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8495a3f2d04e7484ea0697fbd104ce4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Data/TerrainSHP/09.shp
+  geom: {fileID: 1782090137}
+  usingTranslation: 1
+  usingSJSTK: 1
+  useUniformCentroidChunking: 1
+  N: 15
+  useLODCulling: 1
+  screenRelativeTransitionHeight: 0.5
+  material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
 --- !u!1 &1877599417
 GameObject:
   m_ObjectHideFlags: 0
@@ -1835,7 +1859,7 @@ MonoBehaviour:
   gameCenter: {x: 0, y: 0}
   XZScale: 0.1
   YScale: 0.1
-  minWorldY: 26
+  minWorldY: 50
 --- !u!4 &1877599419
 Transform:
   m_ObjectHideFlags: 0
