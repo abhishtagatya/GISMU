@@ -205,7 +205,9 @@ MonoBehaviour:
   N: 8
   useLODCulling: 1
   screenRelativeTransitionHeight: 0.5
+  useGPUInstancing: 0
   material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  pointMesh: {fileID: 0}
 --- !u!1 &320083032
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,7 +427,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &331171517
 Transform:
   m_ObjectHideFlags: 0
@@ -461,7 +463,9 @@ MonoBehaviour:
   N: 10
   useLODCulling: 0
   screenRelativeTransitionHeight: 0.5
-  material: {fileID: 0}
+  useGPUInstancing: 0
+  material: {fileID: 2100000, guid: a0a166c159b1c774caacec8e600725e3, type: 2}
+  pointMesh: {fileID: 0}
   raycastToTerrain: 1
   offset: {x: 0, y: 0.5, z: 0}
 --- !u!1 &338811702
@@ -547,7 +551,9 @@ MonoBehaviour:
   N: 8
   useLODCulling: 1
   screenRelativeTransitionHeight: 0.5
+  useGPUInstancing: 0
   material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  pointMesh: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,7 +818,9 @@ MonoBehaviour:
   N: 8
   useLODCulling: 1
   screenRelativeTransitionHeight: 0.5
+  useGPUInstancing: 0
   material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  pointMesh: {fileID: 0}
 --- !u!1 &626607457
 GameObject:
   m_ObjectHideFlags: 0
@@ -999,7 +1007,9 @@ MonoBehaviour:
   N: 8
   useLODCulling: 1
   screenRelativeTransitionHeight: 0.5
+  useGPUInstancing: 0
   material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  pointMesh: {fileID: 0}
 --- !u!1 &760913961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1203,7 +1213,9 @@ MonoBehaviour:
   N: 8
   useLODCulling: 1
   screenRelativeTransitionHeight: 0.5
+  useGPUInstancing: 0
   material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  pointMesh: {fileID: 0}
 --- !u!1 &1232222348
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,7 +1268,9 @@ MonoBehaviour:
   N: 15
   useLODCulling: 1
   screenRelativeTransitionHeight: 0.5
+  useGPUInstancing: 0
   material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  pointMesh: {fileID: 0}
 --- !u!1 &1316246048
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,7 +1323,9 @@ MonoBehaviour:
   N: 8
   useLODCulling: 1
   screenRelativeTransitionHeight: 0.5
+  useGPUInstancing: 0
   material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  pointMesh: {fileID: 0}
 --- !u!1 &1353685909
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,7 +1409,9 @@ MonoBehaviour:
   N: 12
   useLODCulling: 1
   screenRelativeTransitionHeight: 0.5
+  useGPUInstancing: 0
   material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  pointMesh: {fileID: 0}
 --- !u!1 &1449559864
 GameObject:
   m_ObjectHideFlags: 0
@@ -1648,7 +1666,9 @@ MonoBehaviour:
   N: 10
   useLODCulling: 1
   screenRelativeTransitionHeight: 0.5
+  useGPUInstancing: 0
   material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  pointMesh: {fileID: 0}
 --- !u!1 &1627919003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1687,7 +1707,9 @@ MonoBehaviour:
   N: 8
   useLODCulling: 1
   screenRelativeTransitionHeight: 0.8
+  useGPUInstancing: 0
   material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  pointMesh: {fileID: 0}
 --- !u!4 &1627919005
 Transform:
   m_ObjectHideFlags: 0
@@ -1723,7 +1745,67 @@ MonoBehaviour:
   N: 8
   useLODCulling: 1
   screenRelativeTransitionHeight: 0.5
+  useGPUInstancing: 0
   material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  pointMesh: {fileID: 0}
+--- !u!1 &1760285118
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1760285120}
+  - component: {fileID: 1760285119}
+  m_Layer: 0
+  m_Name: TreePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!114 &1760285119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760285118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b57c103e80176f499c26cfe86b4d634, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Data/Stromy Kere/pz_g_bio2_sjtsk.shp
+  geom: {fileID: 1877599418}
+  usingTranslation: 1
+  usingSJSTK: 1
+  useUniformCentroidChunking: 1
+  N: 10
+  useLODCulling: 1
+  screenRelativeTransitionHeight: 0.5
+  useGPUInstancing: 1
+  material: {fileID: 2100000, guid: cd3d4dc63147f044e8b93a599f61fbd6, type: 2}
+  pointMesh: {fileID: 2494185979427425891, guid: 9ec4763094f0051488a3e7e455826c9f,
+    type: 3}
+  raycastToTerrain: 1
+  offset: {x: 0, y: 0, z: 0}
+--- !u!4 &1760285120
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760285118}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1782090135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1825,7 +1907,9 @@ MonoBehaviour:
   N: 15
   useLODCulling: 1
   screenRelativeTransitionHeight: 0.5
+  useGPUInstancing: 0
   material: {fileID: 2100000, guid: e549f1c2bcffad24cbd602367b89d288, type: 2}
+  pointMesh: {fileID: 0}
 --- !u!1 &1877599417
 GameObject:
   m_ObjectHideFlags: 0
@@ -1837,7 +1921,7 @@ GameObject:
   - component: {fileID: 1877599419}
   - component: {fileID: 1877599418}
   m_Layer: 0
-  m_Name: GeospatialManager_PubTrans
+  m_Name: GeospatialManager_Attachment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1931,6 +2015,7 @@ SceneRoots:
   - {fileID: 1409770473}
   - {fileID: 574733689}
   - {fileID: 331171517}
+  - {fileID: 1760285120}
   - {fileID: 1353685910}
   - {fileID: 760913965}
   - {fileID: 1449559867}

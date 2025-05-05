@@ -7,7 +7,7 @@ using NetTopologySuite.Geometries;
 using NetTopologySuite.IO.Esri;
 
 using ProjNet.CoordinateSystems.Transformations;
-
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -38,6 +38,12 @@ public class AttachmentGenerator : MeshGenerator
             jobState = 1;
             StartCoroutine(GenerateMeshCo(filePath, useUniformCentroidChunking));
             jobState = 2; // Set state to 2 to indicate that the coroutine is running
+            Debug.Log("Finished mesh generation...");
+        }
+
+        if (jobState == 2)
+        {
+            if (useGPUInstancing) RenderPointInstance();
         }
     }
 
@@ -124,5 +130,35 @@ public class AttachmentGenerator : MeshGenerator
 
         vertices.AddRange(allVertices);
         vertexOffset += coordinates.Length;
+    }
+
+    protected override void CreatePointObject(Vector3 point, int chunkIndex)
+    {
+        string chunkName = $"{this.gameObject.name}_Chunk_{chunkIndex}";
+
+
+        GameObject pointObject;
+
+        if (pointMesh != null)
+        {
+            pointObject = new GameObject(chunkName);
+            MeshFilter meshFilter = pointObject.AddComponent<MeshFilter>();
+            MeshRenderer meshRenderer = pointObject.AddComponent<MeshRenderer>();
+            Mesh mesh = Instantiate(pointMesh);
+            meshFilter.mesh = mesh;
+            meshRenderer.material = material;
+        }
+        else
+        {
+           pointObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+           pointObject.name = chunkName;
+            pointObject.GetComponent<Renderer>().material = material;
+
+        }
+        pointObject.transform.position = point;
+        //pointObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        pointObject.isStatic = true;
+
+        pointObject.transform.SetParent(this.transform);
     }
 }

@@ -8,7 +8,7 @@ using NetTopologySuite.Geometries;
 using NetTopologySuite.IO.Esri;
 
 using ProjNet.CoordinateSystems.Transformations;
-
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MeshGenerator : MonoBehaviour
@@ -26,9 +26,11 @@ public class MeshGenerator : MonoBehaviour
     [Header("Optimization")]
     public bool useLODCulling = true;
     public float screenRelativeTransitionHeight = 0.5f;
+    public bool useGPUInstancing = false;
 
     [Header("Visual Representation")]
     public Material material;
+    public Mesh pointMesh;
 
     protected CoordinateConverter _converter;
     protected ICoordinateTransformation _transform;
@@ -36,7 +38,11 @@ public class MeshGenerator : MonoBehaviour
     protected Geometry gtype = null;
     protected ConcurrentDictionary<NetTopologySuite.Geometries.Coordinate, Vector3> cc;
 
+    protected List<Matrix4x4> instanceMatrices;
+
     protected const int MaxVerticesPerChunk = 65535;
+    protected const int MaxBatchSize = 1000;
+
 
     protected virtual void Start()
     {
@@ -45,6 +51,12 @@ public class MeshGenerator : MonoBehaviour
         cc = new ConcurrentDictionary<NetTopologySuite.Geometries.Coordinate, Vector3>();
 
         if (material == null) material = new Material(Shader.Find("Standard"));
+        if (useGPUInstancing)
+        {
+            material.enableInstancing = true;
+            if (pointMesh == null) pointMesh = GameObject.CreatePrimitive(PrimitiveType.Sphere).GetComponent<MeshFilter>().sharedMesh; // Default point prefab if not set
+            instanceMatrices = new List<Matrix4x4>();
+        }
     }
 
     protected virtual void Update()
@@ -193,6 +205,21 @@ public class MeshGenerator : MonoBehaviour
                         vertexOffset = 0;
                     }
                     yield return null;
+                }
+            }
+
+            if (feature.Geometry is MultiPoint multiPoint)
+            {
+                foreach (var point in multiPoint.Geometries)
+                {
+                    if (point is Point)
+                    {
+                        if (useGPUInstancing)
+                            AddPointInstance((Point)point);
+                        else
+                            CreatePointObject(AddPoint((Point)point), chunkIndex++);
+                        yield return null;
+                    }
                 }
             }
         }
@@ -367,6 +394,17 @@ public class MeshGenerator : MonoBehaviour
         vertexOffset += coordinates.Length;
     }
 
+    protected virtual Vector3 AddPoint(Point point)
+    {
+        return TransformCoordinate(point.Coordinate);
+    }
+
+    protected virtual void AddPointInstance(Point point)
+    {
+        Matrix4x4 matrix = Matrix4x4.TRS(AddPoint(point), Quaternion.identity, Vector3.one);
+        instanceMatrices.Add(matrix);
+    }
+
     protected virtual void CreateMeshChunk(List<Vector3> vertices, List<int> triangles, int chunkIndex)
     {
         string chunkName = $"{this.gameObject.name}_Chunk_{chunkIndex}";
@@ -417,6 +455,34 @@ public class MeshGenerator : MonoBehaviour
         lineObject.isStatic = true;
 
         lineObject.transform.SetParent(this.transform);
+    }
+
+    protected virtual void CreatePointObject(Vector3 point, int chunkIndex)
+    {
+        string chunkName = $"{this.gameObject.name}_Chunk_{chunkIndex}";
+
+        GameObject pointObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+        pointObject.name = chunkName;
+        pointObject.transform.position = point;
+        pointObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        pointObject.GetComponent<Renderer>().material = material;
+        pointObject.isStatic = true;
+
+        pointObject.transform.SetParent(this.transform);
+    }
+
+    protected virtual void RenderPointInstance()
+    {
+        for (int i = 0; i < instanceMatrices.Count; i += MaxBatchSize)
+        {
+            int count = Mathf.Min(MaxBatchSize, instanceMatrices.Count - i);
+            Graphics.DrawMeshInstanced(
+                pointMesh,
+                0,
+                material,
+                instanceMatrices.GetRange(i, count)
+            );
+        }
     }
 
     protected virtual void ConfigureLODGroup(GameObject meshObject, MeshRenderer meshRenderer)
