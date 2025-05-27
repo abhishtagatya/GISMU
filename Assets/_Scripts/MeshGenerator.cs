@@ -701,6 +701,7 @@ public class MeshGenerator : MonoBehaviour
 
         GameObject lineObject = new GameObject(chunkName);
         LineRenderer lineRenderer = lineObject.AddComponent<LineRenderer>();
+        lineRenderer.textureMode = LineTextureMode.Tile;
 
         lineRenderer.positionCount = vertices.Count;
         lineRenderer.SetPositions(vertices.ToArray());

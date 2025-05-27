@@ -27,6 +27,8 @@ public class FlyCamera : MonoBehaviour
 
     void Update()
     {
+        // Handle cursor visibility and locking
+        HandleCursor();
         // Handle movement
         HandleMovement();
         // Handle looking around
@@ -35,6 +37,23 @@ public class FlyCamera : MonoBehaviour
         HandleZoom();
         // Smoothly adjust the FOV
         SmoothZoom();
+    }
+
+    void HandleCursor()
+    {
+        // Press Escape to unlock and show the cursor
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
+        // Press Right Mouse Button to lock and hide the cursor again
+        if (Input.GetMouseButtonDown(1))
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
     void HandleMovement()
