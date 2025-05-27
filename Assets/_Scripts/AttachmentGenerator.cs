@@ -34,16 +34,9 @@ public class AttachmentGenerator : MeshGenerator
 
         if (jobState == 0)
         {
-            Debug.Log("Starting mesh generation...");
             jobState = 1;
             StartCoroutine(GenerateMeshCo(filePath, useUniformCentroidChunking));
             jobState = 2; // Set state to 2 to indicate that the coroutine is running
-            Debug.Log("Finished mesh generation...");
-        }
-
-        if (jobState == 2)
-        {
-            if (useGPUInstancing) RenderPointInstance();
         }
     }
 
@@ -136,7 +129,6 @@ public class AttachmentGenerator : MeshGenerator
     {
         string chunkName = $"{this.gameObject.name}_Chunk_{chunkIndex}";
 
-
         GameObject pointObject;
 
         if (pointMesh != null)
@@ -152,12 +144,18 @@ public class AttachmentGenerator : MeshGenerator
         {
            pointObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
            pointObject.name = chunkName;
-            pointObject.GetComponent<Renderer>().material = material;
+           pointObject.GetComponent<Renderer>().material = material;
 
         }
         pointObject.transform.position = point;
         //pointObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         pointObject.isStatic = true;
+
+        if (useLODCulling)
+        {
+            MeshRenderer meshRenderer = pointObject.GetComponent<MeshRenderer>();
+            ConfigureLODGroup(pointObject, meshRenderer);
+        }
 
         pointObject.transform.SetParent(this.transform);
     }
